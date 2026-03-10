@@ -2,7 +2,6 @@
 #include <optional>
 #include <iostream>
 
-          
 uniform_real_distribution<> dis(0.0, 1.0); 
 
 optional<Valuation> WalkSAT(NormalForm& SAT_instance, int condition, double probability){
@@ -50,8 +49,6 @@ int main(){
 
 	double probability = 0.4;
 
-	//NormalForm formula = {{1, 2, 3}, {1, 2, -3}, {1, -2, 3}, {1, -2, -3}, {-1, 2, 3}, {-1, 2, -3}, {-1, -2, 3}, {-1, -2, -3}};
-	
 	NormalForm formula = {
 	    {1, 2, 3}, {-1, -2, 4}, {1, -3, 5}, {-2, 3, -4}, {2, 4, -5},
 	    {-1, 3, 5}, {1, -4, -5}, {-3, 4, 5}, {2, -3, -5}, {-1, -2, 3},
