@@ -96,7 +96,7 @@ vector<Clause> find_unsatisfied_clauses(NormalForm& SAT_instance, Valuation& val
 	return unsat_clauses;
 }
 
-Clause choose_random_unsatisified_clause(vector<Clause>& unsatisfied_clauses){
+Clause choose_random_unsatisfied_clause(vector<Clause>& unsatisfied_clauses){
 	
 	int array_size = unsatisfied_clauses.size();
 	

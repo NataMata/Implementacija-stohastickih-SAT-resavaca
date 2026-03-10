@@ -18,7 +18,7 @@ optional<Valuation> WalkSAT(NormalForm& SAT_instance, int condition, double prob
 		
 		vector<Clause> unsatisfied_clauses = find_unsatisfied_clauses(SAT_instance, valuation);
 		
-		Clause unsat_clause = choose_random_unsatisified_clause(unsatisfied_clauses);
+		Clause unsat_clause = choose_random_unsatisfied_clause(unsatisfied_clauses);
 		
 		map<Variable, int> breakcounts;
 		for(auto literal : unsat_clause){
