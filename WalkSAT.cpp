@@ -46,7 +46,7 @@ optional<Valuation> WalkSAT(NormalForm& SAT_instance, int condition, double prob
 	return nullopt;
 }
 
-NormalForm parse(std::istream& input) {
+NormalForm parse(istream& input) {
 
     string buffer;
     do {
