@@ -1,6 +1,7 @@
 #include "WalkSAT.h"
 #include <optional>
 #include <iostream>
+#include <fstream>
 
 uniform_real_distribution<> dis(0.0, 1.0); 
 
@@ -45,19 +46,58 @@ optional<Valuation> WalkSAT(NormalForm& SAT_instance, int condition, double prob
 	return nullopt;
 }
 
-int main(){
+NormalForm parse(std::istream& input) {
 
-	double probability = 0.4;
+    string buffer;
+    do {
+        input >> buffer;
+        if(buffer == "c")
+            input.ignore(1000, '\n');
+    } while(buffer != "p");
 
-	NormalForm formula = {
-	    {1, 2, 3}, {-1, -2, 4}, {1, -3, 5}, {-2, 3, -4}, {2, 4, -5},
-	    {-1, 3, 5}, {1, -4, -5}, {-3, 4, 5}, {2, -3, -5}, {-1, -2, 3},
-	    {1, 4, -5}, {-2, -4, 5}, {3, -4, -5}, {-1, 3, -4}, {2, 3, 4},
-	    {1, 5, -2}, {-3, -5, 2}, {4, -1, -3}, {-5, 1, 4}, {2, -4, 6}
-	};
+    input >> buffer;
+
+    int atomCount;
+    int clauseCount;
+    input >> atomCount >> clauseCount;
+
+    NormalForm res;
+    for(int i = 0; i < clauseCount; i++) {
+        Clause clause;
+        Literal literal;
+        input >> literal;
+        while(literal != 0) {
+            clause.push_back(literal);
+            input >> literal;
+        }
+        res.push_back(clause);
+    }
+    return res;
+}
+
+int main(int argc, char* argv[]){
+
+	if(argc == 1){
+		cout << "Unesite naziv fajla."<< endl;
+		return 1;
+	}
 	
-	if(WalkSAT(formula, 10, probability)){
+	string filename = argv[1];
+        ifstream inputFile(filename);
+
+        NormalForm formula = parse(inputFile);
+	
+	double probability = 0.4;
+	auto res = WalkSAT(formula, 10, probability);
+	
+	if(res){
 		cout << "SAT" << endl;
+		
+		Valuation val = res.value();
+		for(auto pair : val){
+			cout << pair.first << ": " << pair.second << endl;
+		}
+		 
 	} else{
 		cout << "Unknown" << endl;
 	}
