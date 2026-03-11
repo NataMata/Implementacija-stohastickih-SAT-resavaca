@@ -10,4 +10,4 @@ Kako bi se program pokrenuo, potrebno je na sistemu imati instaliran prevodilac 
 
 `g++ -std=c++20 WalkSAT.cpp`
 
-`./a.out`
+`./a.out formula.cnf`
